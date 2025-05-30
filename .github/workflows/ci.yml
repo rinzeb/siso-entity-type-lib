@@ -22,6 +22,11 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Enable Corepack and install pnpm
+        run: |
+          corepack enable
+          corepack install
+
       - name: Install dependencies
         run: pnpm install
 
