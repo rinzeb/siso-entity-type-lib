@@ -41,7 +41,7 @@
     "@arethetypeswrong/cli": "^0.18.1",
     "@changesets/cli": "^2.29.4",
     "@types/debug": "^4.1.12",
-    "@types/node": "^22.15.23",
+    "@types/node": "^22.15.27",
     "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "quicktype": "^23.2.6",
