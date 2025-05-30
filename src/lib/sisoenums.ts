@@ -1,7 +1,6 @@
-import { EntityKind } from "./entitykind.js";
-import { EntityDomain } from "./entitydomain.js";
 import { XMLBuilder } from "fast-xml-parser";
 import debugEsm from "debug";
+const debug = debugEsm("SISO:enums");
 
 import type {
   CategoryElement,
@@ -19,26 +18,9 @@ import type {
   TentacledSpecific,
 } from "../generated/siso-xml-types.js";
 import { toBigInt, toNumber } from "./utils.js";
+import { SisoEnum } from "./sisoenumtype.js";
 
 type AllSpecificTypes = StickySpecific | PurpleSpecific | FluffySpecific | TentacledSpecific;
-
-const debug = debugEsm("SISO:enums");
-
-export interface SisoEnumType {
-  uid: number; // Unique identifier for the enumeration
-  kind: EntityKind; // High-level classification (e.g., Platform, Munition)
-  domain?: EntityDomain; // Operational domain (e.g., Land, Air, Sea)
-  category?: string; // Specific category within the domain
-  subCategory?: string; // Optional subcategory
-  specific?: string; // Optional specific type
-  extra?: string; // Optional extra detail
-  description: string; // Human-readable description
-  fullName?: string; // Optional full name or label
-  version?: string; // Version of the enumeration
-  country?: string; // Country code or name if applicable
-
-  toString(): string;
-}
 
 // UIDs
 const UID_ENTITYKIND = 7;
@@ -324,7 +306,7 @@ export class SisoEnums {
   //     .map(([key]) => key as EntityKind);
   // }
 
-  public getOrDefault(entityType: bigint, defaultValue: string | null): string | null {
+  public getOrDefault(entityType: bigint, defaultValue: string = "No description found"): string {
     let text =
       this.mapCategory.get(entityType) ??
       this.mapCategory.get(entityType & BITMAP_0_CAT_SUBCAT_SPECIFIC_EXTRA) ??
@@ -337,11 +319,9 @@ export class SisoEnums {
       this.mapCategory.get(entityType & BITMAP_0_CAT) ??
       this.mapCategory.get(entityType & BITMAP_KIND_DOMAIN) ??
       defaultValue;
-
     if (text == null) {
-      return null;
+      text = defaultValue;
     }
-
     this.mapCategory.set(entityType, text);
     return text;
   }
@@ -488,6 +468,20 @@ export class SisoEnums {
       ((toBigInt(specific) & 0xffn) << 8n) |
       (toBigInt(extra) & 0xffn);
     return key;
+  }
+
+  createKeyFor(se: SisoEnum): bigint {
+    return this.createKey(se.kind, se.domain, se.country, se.category, se.subcategory, se.specific, se.extra);
+  }
+
+  getDescriptionOf(sisoEnum: SisoEnum): string {
+    const key = this.createKeyFor(sisoEnum);
+    const cat = this.getOrDefault(key);
+    return cat;
+  }
+
+  createSisoEnumfromString(enumString: string): SisoEnum {
+    return SisoEnum.fromString(enumString);
   }
 
   toString() {

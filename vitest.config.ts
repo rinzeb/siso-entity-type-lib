@@ -5,7 +5,8 @@ export default defineConfig({
     environment: "jsdom",
     env: {
       // Use { DEBUG: "SISO:*" } for printing debug statements during tests,
-      DEBUG: "",
+      DEBUG: "SISO:*",
+      _DEBUG: "",
     },
   },
 });
