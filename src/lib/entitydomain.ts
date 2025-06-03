@@ -2,24 +2,24 @@ export enum EntityDomain {
   Other = 0,
   Land = 1,
   Air = 2,
-  Sea = 3,
-  Space = 4,
-  Subsurface = 5,
-  Cyber = 6,
+  Surface = 3,
+  Subsurface = 4,
+  Space = 5,
 }
 
 export const EntityDomainDescriptions: Record<EntityDomain, string> = {
   [EntityDomain.Other]: "Other",
   [EntityDomain.Land]: "Land",
   [EntityDomain.Air]: "Air",
-  [EntityDomain.Sea]: "Sea",
-  [EntityDomain.Space]: "Space",
+  [EntityDomain.Surface]: "Surface",
   [EntityDomain.Subsurface]: "Subsurface",
-  [EntityDomain.Cyber]: "Cyber",
+  [EntityDomain.Space]: "Space",
 };
 
 export function createEntityDomainFromNumber(val: number): EntityDomain | undefined {
-  return Number.isFinite(val) && val >= 0 && val <= 6 ? EntityDomain[val as unknown as keyof typeof EntityDomain] : undefined;
+  return Number.isFinite(val) && val >= 0 && val <= Object.keys(EntityDomainDescriptions).length
+    ? EntityDomain[val as unknown as keyof typeof EntityDomain]
+    : undefined;
 }
 
 export function getEntityDomainDescription(domain: EntityDomain): string {

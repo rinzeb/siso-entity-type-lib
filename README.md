@@ -25,12 +25,13 @@ To use SISO-REF-010 enums library in your project, follow these steps:
 
    ```typescript
    // Example usage
-   import { SisoEnum } from "siso-entity-type-lib";
+   import { SisoEnum, EntityKind } from "siso-entity-type-lib";
    let filePath = "/../data/SISO-REF-010.xml";
    let sisoEnums = SisoEnumsFactory.createFromFile(filePath);
    let country = sisoEnums.getCountry(153); // country = "The Netherlands (NLD)"
    let searchResults = sisoEnums.searchDescription("F803"); // searchResults = ["72902676198982144","Guided Missile Frigate (FFG) / De Zeven Provincien Class / F803 Tromp"]
    let categories = sisoEnums.getAllCategoriesOf(1, 4, 153).values(); // categories = ["Semi-Submersible Boats", "SS (Conventional Attack-Torpedo, Patrol)"]
+   let domains = sisoEnums.getAllDomainsOf(EntityKind.Platform).values(); // domains = ["Other", "Land", "Air", ...]
    ```
 
 ## Development

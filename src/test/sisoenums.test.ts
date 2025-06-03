@@ -89,7 +89,7 @@ describe("SisoEnums class", () => {
       });
       it("domains for Platform", () => {
         expect(sisoEnums.getAllDomainsOf(1).size).toBe(6);
-        expect(sisoEnums.getAllDomainsOf(1).values()).toContain("Land");
+        expect(sisoEnums.getAllDomainsOf(EntityKind.Platform).values()).toContain("Land");
         expect(sisoEnums.getAllDomainsOf(1).values()).toContain("Air");
         expect(sisoEnums.getAllDomainsOf(1).values()).toContain("Surface");
         expect(sisoEnums.getAllDomainsOf(1).values()).toContain("Subsurface");
@@ -101,12 +101,12 @@ describe("SisoEnums class", () => {
     describe("has correct categories", () => {
       it("subsurface platforms for Netherlands", () => {
         expect(sisoEnums.getAllCategoriesOf(1, 4, 153).size).toBe(2);
-        expect(sisoEnums.getAllCategoriesOf(1, 4, 153).values()).toContain("Semi-Submersible Boats");
+        expect(sisoEnums.getAllCategoriesOf(EntityKind.Platform, EntityDomain.Subsurface, 153).values()).toContain("Semi-Submersible Boats");
         expect(sisoEnums.getAllCategoriesOf(1, 4, 153).values()).toContain("SS (Conventional Attack-Torpedo, Patrol)");
       });
       it("surface environmental for Other", () => {
         expect(sisoEnums.getAllCategoriesOf(4, 3, 0).size).toBe(10);
-        expect(sisoEnums.getAllCategoriesOf(4, 3, 0).values()).toContain("Island");
+        expect(sisoEnums.getAllCategoriesOf(EntityKind.Environmental, 3, 0).values()).toContain("Island");
         expect(sisoEnums.getAllCategoriesOf(4, 3, 0).values()).toContain("Sea State");
       });
     });

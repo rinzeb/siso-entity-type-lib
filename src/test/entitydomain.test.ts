@@ -9,7 +9,8 @@ describe("EntityDomain enum", () => {
   it("is created for valid numbers", () => {
     expect(createEntityDomainFromNumber(0)).toBe("Other");
     expect(createEntityDomainFromNumber(1)).toBe("Land");
-    expect(createEntityDomainFromNumber(6)).toBe("Cyber");
+    expect(createEntityDomainFromNumber(4)).toBe("Subsurface");
+    expect(createEntityDomainFromNumber(5)).toBe("Space");
   });
 
   it("returns undefined for invalid numbers", () => {
