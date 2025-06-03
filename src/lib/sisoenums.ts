@@ -437,9 +437,11 @@ export class SisoEnums {
     );
   }
 
-  public searchDescription(query: string): Map<string, string> {
-    return new Map(
-      [...this.mapCategory.entries()].filter(([, v]) => v.toLowerCase().includes(query.toLowerCase())).map(([k, v]) => [k.toString(), v]),
+  public searchDescription(query: string): Record<string, string> {
+    return Object.fromEntries(
+      [...this.mapCategory.entries()]
+        .filter(([, v]) => v.toLowerCase().includes(query.toLowerCase()))
+        .map((entry) => [SisoEnum.fromKey(entry[0]).toString(), entry[1]]),
     );
   }
 

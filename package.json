@@ -5,9 +5,11 @@
   "keywords": [],
   "files": [
     "dist/",
-    "!dist/test"
+    "!dist/test",
+    "dist/data/SISO-REF-010.xml"
   ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rinzeb/siso-entity-type-lib.git"
@@ -19,7 +21,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cpy ./data/SISO-REF-010.xml dist/",
     "ci": "pnpm run build && pnpm run check-format && pnpm run check-exports && pnpm run test",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
@@ -28,7 +30,7 @@
     "dev": "vitest",
     "debug": "vitest",
     "local-release": "changeset version && changeset publish",
-    "prepublishOnly": "npm run ci",
+    "prepublishOnly": "pnpm run ci",
     "parse-xml": "node scripts/generate-json.mjs -i ../src/data/SISO-REF-010.xml -o parsed-xml.json",
     "gen-ts": "quicktype -l ts -s json -o src/generated/siso-xml-types.ts ./scripts/parsed-xml.json",
     "generate-types": "pnpm run parse-xml && pnpm run gen-ts && rimraf scripts/parsed-xml.json"
@@ -42,6 +44,7 @@
     "@changesets/cli": "^2.29.4",
     "@types/debug": "^4.1.12",
     "@types/node": "^22.15.27",
+    "cpy-cli": "^5.0.0",
     "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "quicktype": "^23.2.6",

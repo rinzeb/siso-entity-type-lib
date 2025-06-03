@@ -101,7 +101,9 @@ describe("SisoEnums class", () => {
     describe("has correct categories", () => {
       it("subsurface platforms for Netherlands", () => {
         expect(sisoEnums.getAllCategoriesOf(1, 4, 153).size).toBe(2);
-        expect(sisoEnums.getAllCategoriesOf(EntityKind.Platform, EntityDomain.Subsurface, 153).values()).toContain("Semi-Submersible Boats");
+        expect(sisoEnums.getAllCategoriesOf(EntityKind.Platform, EntityDomain.Subsurface, 153).values()).toContain(
+          "Semi-Submersible Boats",
+        );
         expect(sisoEnums.getAllCategoriesOf(1, 4, 153).values()).toContain("SS (Conventional Attack-Torpedo, Patrol)");
       });
       it("surface environmental for Other", () => {
@@ -149,14 +151,15 @@ describe("SisoEnums class", () => {
 
     describe("is searchable", () => {
       it("finds MC-12S-1 EMARSS-G of USA", () => {
-        let results = Array.from(sisoEnums.searchDescription("MC-12S-1 EMARSS-G").values());
-        expect(results.length).toBe(1);
-        expect(results.some((v) => v.includes("MC-12S-1 EMARSS-G"))).toBeTruthy();
+        let results = sisoEnums.searchDescription("MC-12S-1 EMARSS-G");
+        expect(Object.keys(results).length).toBe(1);
+        expect(Object.values(results).some((v) => v.includes("MC-12S-1 EMARSS-G"))).toBeTruthy();
       });
       it("finds F803 Tromp", () => {
-        let results = Array.from(sisoEnums.searchDescription("F803 Tromp").values());
-        expect(results.length).toBe(1);
-        expect(results.some((v) => v.includes("F803 Tromp"))).toBeTruthy();
+        let results = sisoEnums.searchDescription("F803 Tromp");
+        expect(Object.keys(results).length).toBe(1);
+        expect(Object.values(results).some((v) => v.includes("F803 Tromp"))).toBeTruthy();
+        expect(Object.keys(results).pop()).toBe("1.3.153.6.4.2.0");
       });
     });
 

@@ -54,4 +54,17 @@ export class SisoEnum implements SisoEnumType {
     const [kind, domain, country, category, subcategory, specific, extra] = parts;
     return new SisoEnum(kind!, domain!, country!, category!, subcategory!, specific!, extra!);
   }
+
+  static fromKey(key: bigint): SisoEnum {
+    if (key == null) throw new Error(`No valid enum string: ${key}`);
+    return new SisoEnum(
+      Number((key >> 56n) & 0xffn),
+      Number((key >> 48n) & 0xffn),
+      Number((key >> 32n) & 0xffffn),
+      Number((key >> 24n) & 0xffn),
+      Number((key >> 16n) & 0xffn),
+      Number((key >> 8n) & 0xffn),
+      Number(key & 0xffn),
+    );
+  }
 }
