@@ -1,5 +1,9 @@
 # SISO-REF-010 entity type enumerations library
 
+## -- Deprecated --
+
+This codebase has been moved. See [https://github.com/rinzeb/siso-entity-type](https://github.com/rinzeb/siso-entity-type) for the actual version.
+
 **Experimental**
 
 A JavaScript library for parsing SISO-REF-010 entity type enumerations data.
